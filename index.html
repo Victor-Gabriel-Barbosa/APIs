@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Testador API Ninja</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          animation: {
+            'fade-in': 'fadeIn 0.5s ease-in-out',
+            'slide-up': 'slideUp 0.3s ease-out'
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+</head>
+
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+  <!-- Header -->
+  <header class="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <div class="flex items-center space-x-3">
+          <div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+            <i data-lucide="zap" class="w-5 h-5 text-white"></i>
+          </div>
+          <h1 class="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            API Ninja Tester
+          </h1>
+        </div>
+
+        <!-- Theme Switcher -->
+        <div class="flex items-center space-x-2">
+          <span class="text-sm text-gray-600 dark:text-gray-400">Tema:</span>
+          <div class="relative">
+            <select id="themeSelector"
+              class="appearance-none bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 pr-8 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <option value="system">Sistema</option>
+              <option value="light">Claro</option>
+              <option value="dark">Escuro</option>
+            </select>
+            <i data-lucide="chevron-down"
+              class="absolute right-2 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- API Selection -->
+    <div class="mb-8">
+      <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+        <h2 class="text-lg font-semibold mb-4 flex items-center">
+          <i data-lucide="settings" class="w-5 h-5 mr-2 text-blue-500"></i>
+          Configuração da API
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label for="apiSelect" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              Selecione uma API:
+            </label>
+            <select id="apiSelect"
+              class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <option value="">Escolha uma API...</option>
+              <option value="jokes">Piadas</option>
+              <option value="quotes">Citações</option>
+              <option value="facts">Fatos Curiosos</option>
+              <option value="cats">Fatos sobre Gatos</option>
+              <option value="dogs">Fatos sobre Cachorros</option>
+              <option value="cocktail">Receitas de Drinks</option>
+              <option value="exercises">Exercícios</option>
+              <option value="nutrition">Informações Nutricionais</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="apiKey" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              Chave da API:
+            </label>
+            <input type="password" id="apiKey" placeholder="Sua chave da API Ninja"
+              class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+          </div>
+        </div>
+
+        <!-- Translation Toggle -->
+        <div
+          class="mt-4 flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600">
+          <div class="flex items-center space-x-3">
+            <i data-lucide="languages" class="w-5 h-5 text-blue-500"></i>
+            <div>
+              <label for="translateToggle" class="text-sm font-medium text-gray-700 dark:text-gray-300">
+                Tradução Automática
+              </label>
+              <p class="text-xs text-gray-500 dark:text-gray-400">
+                Traduzir resultados do inglês para português
+              </p>
+            </div>
+          </div>
+          <label class="relative inline-flex items-center cursor-pointer">
+            <input type="checkbox" id="translateToggle" class="sr-only peer" checked>
+            <div
+              class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+            </div>
+          </label>
+        </div>
+
+        <div class="mt-4">
+          <button id="testButton"
+            class="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-medium py-2 px-6 rounded-lg transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none">
+            <span class="flex items-center">
+              <i data-lucide="play" class="w-4 h-4 mr-2"></i>
+              Testar API
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results Section -->
+    <div id="resultsSection" class="hidden">
+      <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+        <h2 class="text-lg font-semibold mb-4 flex items-center">
+          <i data-lucide="database" class="w-5 h-5 mr-2 text-green-500"></i>
+          Resultado da API
+        </h2>
+
+        <!-- Loading State -->
+        <div id="loadingState" class="hidden text-center py-8">
+          <div class="inline-flex items-center">
+            <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-500 mr-3"></div>
+            <span class="text-gray-600 dark:text-gray-400">Carregando...</span>
+          </div>
+        </div>
+
+        <!-- Success State -->
+        <div id="successState" class="hidden">
+          <div class="mb-4">
+            <span
+              class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200">
+              <i data-lucide="check-circle" class="w-3 h-3 mr-1"></i>
+              Sucesso
+            </span>
+          </div>
+          <div id="apiResult" class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 overflow-auto max-h-96">
+            <!-- Resultado será inserido aqui -->
+          </div>
+        </div>
+
+        <!-- Error State -->
+        <div id="errorState" class="hidden">
+          <div class="mb-4">
+            <span
+              class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200">
+              <i data-lucide="alert-circle" class="w-3 h-3 mr-1"></i>
+              Erro
+            </span>
+          </div>
+          <div id="errorMessage"
+            class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4 text-red-700 dark:text-red-300">
+            <!-- Mensagem de erro será inserida aqui -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- API Documentation -->
+    <div class="mt-8">
+      <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+        <h2 class="text-lg font-semibold mb-4 flex items-center">
+          <i data-lucide="book-open" class="w-5 h-5 mr-2 text-purple-500"></i>
+          Sobre a API Ninja
+        </h2>
+        <div class="prose dark:prose-invert max-w-none">
+          <p class="text-gray-600 dark:text-gray-400 mb-4">
+            A API Ninja oferece acesso a diversas APIs úteis e divertidas. Para usar este testador:
+          </p>
+
+          <ol class="list-decimal list-inside space-y-2 text-gray-600 dark:text-gray-400">
+            <li>Obtenha sua chave gratuita em <a href="https://api-ninjas.com/" target="_blank"
+                class="text-blue-500 hover:text-blue-600 underline">api-ninjas.com</a></li>
+            <li>Cole sua chave no campo "Chave da API"</li>
+            <li>Ative a "Tradução Automática" se desejar conteúdo em português</li>
+            <li>Selecione uma das APIs disponíveis</li>
+            <li>Clique em "Testar API" para ver o resultado</li>
+          </ol>
+
+          <div class="mt-6 grid gap-4 md:grid-cols-2">
+            <div class="p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
+              <p class="text-blue-800 dark:text-blue-200 text-sm">
+                <i data-lucide="info" class="w-4 h-4 inline mr-1"></i>
+                <strong>Dica:</strong> Suas configurações são salvas localmente no navegador para sua conveniência.
+              </p>
+            </div>
+
+            <div class="p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
+              <p class="text-green-800 dark:text-green-200 text-sm">
+                <i data-lucide="languages" class="w-4 h-4 inline mr-1"></i>
+                <strong>Tradução:</strong> Os resultados são automaticamente traduzidos do inglês para português quando
+                ativado.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="mt-12 py-8 border-t border-gray-200 dark:border-gray-700">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <p class="text-gray-500 dark:text-gray-400 text-sm">
+        Testador API Ninja - Desenvolvido com
+        <i data-lucide="heart" class="w-4 h-4 inline text-red-500"></i>
+        e Tailwind CSS
+      </p>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+
+</html>
